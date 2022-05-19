@@ -72,15 +72,15 @@ export default function Home({ jobs }) {
       ) : (
         <div style={{ margin: "5rem" , display: "flex"}}>
           {jobs.map((job) => (
-            <Card shadow="sm" p="lg">
+            <Card className="mx-5 my-4" shadow="sm" p="lg">
               <Card.Section>
-                <h1>{job.company}</h1>
+                <h1 className="text-xl text-center">{job.company}</h1>
               </Card.Section>
 
               <Group position="apart" style={{ marginBottom: 5 }}>
                 <Text weight={500}>{job.position}</Text>
                 <Badge color="pink" variant="light">
-                  {job.date}
+                  Date - {job.date}
                 </Badge>
               </Group>
 
