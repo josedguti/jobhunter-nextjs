@@ -6,7 +6,6 @@ import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import Head from "next/head";
-import { Button } from "@mantine/core";
 import TheModal from "./TheModal";
 
 function classNames(...classes) {
@@ -26,7 +25,7 @@ function Nav() {
         />
         <link rel="slingshot" href="/favicon.ico" />
       </Head>
-      <Disclosure as="nav" className="bg-white">
+      <Disclosure as="nav" className="bg-white shadow-lg">
         {({ open }) => (
           <>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -72,6 +71,16 @@ function Nav() {
                   </div>
                   <div className="hidden md:ml-6 md:flex md:space-x-8">
                     {/* Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
+                    <Link href="/">
+                    <div className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium cursor-pointer">
+                      Home
+                    </div>
+                  </Link>
+                  <Link href="/JobList">
+                    <div className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium cursor-pointer">
+                      Jobs
+                    </div>
+                  </Link>
                   </div>
                 </div>
                 <div className="flex items-center">
@@ -139,6 +148,23 @@ function Nav() {
             </div>
 
             <Disclosure.Panel className="md:hidden">
+            <div className="pt-2 pb-3 space-y-1">
+              {/* Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
+              <Disclosure.Button
+                as="a"
+                href="/"
+                className="bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6"
+              >
+                Home
+              </Disclosure.Button>
+              <Disclosure.Button
+                as="a"
+                href="/JobList"
+                className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6"
+              >
+                Jobs
+              </Disclosure.Button>
+            </div>
               {session ? (
                 <div className="pt-4 pb-3 border-t border-gray-200">
                   <div className="flex items-center px-4 sm:px-6">

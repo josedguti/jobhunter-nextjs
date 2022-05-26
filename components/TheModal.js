@@ -9,11 +9,9 @@ const TheModal = () => {
   const [opened, setOpened] = useState(false);
   const router = useRouter();
   const [formData, setFormData] = useState({});
-  const [loading, setLoading] = useState(false);
 
   // submit to database
   const handleSubmit = async () => {
-    setLoading(true);
     try {
       const response = await axios.post("/api/createJob", formData);
       if (response.status === 200) 
@@ -21,7 +19,7 @@ const TheModal = () => {
           title: "Job Created Successfully",
           color: "green",
         });
-        router.push('/');
+        router.replace(router.asPath);
       } catch (error) {
       console.log(error);
       return showNotification({
@@ -29,9 +27,6 @@ const TheModal = () => {
         color: "red",
       });
     }
-    form.reset();
-    setLoading(false);
-    setOpened(false);
   };
 
   return (
@@ -102,7 +97,6 @@ const TheModal = () => {
               Cancel
             </Button>
             <Button
-              loading={loading}
               type="submit"
               className="hover:text-zinc-500 hover:bg-black bg-black text-white"
             >
