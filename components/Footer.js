@@ -3,7 +3,7 @@ import React from 'react'
 const navigation = [
   {
     name: 'GitHub',
-    href: 'https://github.com/josedguti/job-hunter-nextjs',
+    href: 'https://github.com/josedguti/jobhunter-nextjs',
     icon: (props) => (
       <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
         <path

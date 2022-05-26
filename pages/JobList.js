@@ -1,15 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import { getSession, useSession } from "next-auth/react";
-import {
-  Card,
-  Image,
-  Text,
-  Badge,
-  Button,
-  Group,
-} from "@mantine/core";
+import { Card, Text, Badge, Button, Group } from "@mantine/core";
 import Loading from "../components/Loading";
 import TheModal from "../components/TheModal";
+import AccessDenied from "../components/AccessDenied";
+import DeleteModal from "../components/DeleteModal";
 
 export async function getServerSideProps(context) {
   const prisma = new PrismaClient();
@@ -46,6 +41,10 @@ export default function Home({ jobs }) {
     return <Loading />;
   }
 
+  if (status === "unauthenticated") {
+    return <AccessDenied />;
+  }
+
   return (
     <>
       <h1 className="text-center text-indigo-700 text-3xl font-bold mb-5">
@@ -61,11 +60,11 @@ export default function Home({ jobs }) {
             You have no jobs yet!
           </h1>
           <div className="flex-shrink-0 text-center my-5">
-           <TheModal />
+            <TheModal />
           </div>
         </>
       ) : (
-        <div style={{ margin: "5rem" , display: "flex"}}>
+        <div style={{ margin: "5rem", display: "flex" }}>
           {jobs.map((job) => (
             <Card key={job.id} className="mx-5 my-4" shadow="sm" p="lg">
               <Card.Section>
@@ -75,7 +74,7 @@ export default function Home({ jobs }) {
               <Group position="apart" style={{ marginBottom: 5 }}>
                 <Text weight={500}>{job.position}</Text>
                 <Badge color="pink" variant="light">
-                  Date - {job.date}
+                  Date: {job.date}
                 </Badge>
               </Group>
 
@@ -91,6 +90,17 @@ export default function Home({ jobs }) {
               >
                 {job.status}
               </Button>
+              {job.status === "Interviewing" ? (
+                <DeleteModal
+                  disabled={true}
+                  job={job}
+                />
+              ) : (
+                <DeleteModal
+                  job={job}
+                  disabled={false}
+                />
+              )}
             </Card>
           ))}
         </div>

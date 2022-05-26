@@ -13,10 +13,12 @@ const TheModal = () => {
     router.reload();
   };
 
-  // submit to database
-  const handleSubmit = async () => {
+  // update job status
+  const updateJob = async (id) => {
     try {
-      const response = await axios.post("/api/createJob", formData);
+      const response = await axios.put("/api/updateJob", {
+          jobId: id
+      });
       if (response.status === 200) {
         reload();
       }

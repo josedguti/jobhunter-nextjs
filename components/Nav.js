@@ -72,21 +72,22 @@ function Nav() {
                   <div className="hidden md:ml-6 md:flex md:space-x-8">
                     {/* Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
                     <Link href="/">
-                    <div className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium cursor-pointer">
-                      Home
-                    </div>
-                  </Link>
-                  <Link href="/JobList">
-                    <div className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium cursor-pointer">
-                      Jobs
-                    </div>
-                  </Link>
+                      <div className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium cursor-pointer">
+                        Home
+                      </div>
+                    </Link>
+                    <Link href="/JobList">
+                      <div className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium cursor-pointer">
+                        Jobs
+                      </div>
+                    </Link>
                   </div>
                 </div>
                 <div className="flex items-center">
                   {session ? (
                     <div className="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">
                       <TheModal />
+
                       {/* Profile dropdown */}
                       <Menu as="div" className="ml-3 relative">
                         <div>
@@ -148,23 +149,23 @@ function Nav() {
             </div>
 
             <Disclosure.Panel className="md:hidden">
-            <div className="pt-2 pb-3 space-y-1">
-              {/* Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
-              <Disclosure.Button
-                as="a"
-                href="/"
-                className="bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6"
-              >
-                Home
-              </Disclosure.Button>
-              <Disclosure.Button
-                as="a"
-                href="/JobList"
-                className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6"
-              >
-                Jobs
-              </Disclosure.Button>
-            </div>
+              <div className="pt-2 pb-3 space-y-1">
+                {/* Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
+                <Disclosure.Button
+                  as="a"
+                  href="/"
+                  className="bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6"
+                >
+                  Home
+                </Disclosure.Button>
+                <Disclosure.Button
+                  as="a"
+                  href="/JobList"
+                  className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6"
+                >
+                  Jobs
+                </Disclosure.Button>
+              </div>
               {session ? (
                 <div className="pt-4 pb-3 border-t border-gray-200">
                   <div className="flex items-center px-4 sm:px-6">
