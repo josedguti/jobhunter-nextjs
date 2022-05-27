@@ -6,7 +6,6 @@ import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import Head from "next/head";
-import TheModal from "./TheModal";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -20,10 +19,10 @@ function Nav() {
       <Head>
         <title>Job Hunter</title>
         <meta
-          name="description"
-          content="Create your projects and add requirements"
+          name="Job Hunter: The best job tracker"
+          content="Organize your job search and find the perfect job for you."
         />
-        <link rel="slingshot" href="/favicon.ico" />
+        <link rel="job-hunter" href="/favicon.ico" />
       </Head>
       <Disclosure as="nav" className="bg-white shadow-lg">
         {({ open }) => (
@@ -86,8 +85,6 @@ function Nav() {
                 <div className="flex items-center">
                   {session ? (
                     <div className="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">
-                      <TheModal />
-
                       {/* Profile dropdown */}
                       <Menu as="div" className="ml-3 relative">
                         <div>

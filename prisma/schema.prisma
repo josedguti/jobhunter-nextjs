@@ -80,4 +80,6 @@ enum Status {
   Interviewing
   Rejected
   Hired
+  Offer
+  Ghosted
 }

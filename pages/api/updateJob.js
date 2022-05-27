@@ -14,7 +14,7 @@ const updateJob = async (req, res) => {
           status: status,
         },
       });
-      res.status(200).json({ message: "Job updated to Interviewing" });
+      res.status(200).json({ message: "Job updated" });
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: error });

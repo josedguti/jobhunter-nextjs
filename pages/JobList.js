@@ -6,6 +6,7 @@ import TheModal from "../components/TheModal";
 import AccessDenied from "../components/AccessDenied";
 import DeleteModal from "../components/DeleteModal";
 import StatusModal from "../components/StatusModal";
+import Link from "next/link";
 
 export async function getServerSideProps(context) {
   const prisma = new PrismaClient();
@@ -35,7 +36,7 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default function Home({ jobs }) {
+export default function JobList({ jobs }) {
   const { data: session, status } = useSession();
 
   if (status === "loading") {
@@ -55,17 +56,17 @@ export default function Home({ jobs }) {
         </span>
         , Welcome to your Job Listing!
       </h1>
+      <div className="text-center">
+        <TheModal />
+      </div>
       {jobs.length === 0 ? (
         <>
           <h1 className="text-center text-indigo-700 text-2xl my-5">
-            You have no jobs yet!
+            You have no jobs yet, please create a new one!
           </h1>
-          <div className="flex-shrink-0 text-center my-5">
-            <TheModal />
-          </div>
         </>
       ) : (
-        <div style={{ margin: "5rem", display: "flex" }}>
+        <div style={{ margin: "3rem", display: "flex" }}>
           {jobs.map((job) => (
             <Card key={job.id} className="mx-5 my-4" shadow="sm" p="lg">
               <Card.Section>
@@ -73,14 +74,14 @@ export default function Home({ jobs }) {
               </Card.Section>
 
               <Group position="apart" style={{ marginBottom: 5 }}>
-                <Text weight={500}>{job.position}</Text>
+                <Text weight={500}>Position: {job.position}</Text>
                 <Badge color="pink" variant="light">
                   Date: {job.date}
                 </Badge>
               </Group>
 
               <Text size="sm" style={{ lineHeight: 1.5 }}>
-                {job.url}
+                <a href={job.url} rel="noopener" target="_blank">Link to Job Post</a>
               </Text>
 
               <Button
@@ -89,20 +90,14 @@ export default function Home({ jobs }) {
                 fullWidth
                 style={{ marginTop: 14 }}
               >
-                {job.status}
+                Job Status: {job.status}
               </Button>
               {job.status === "Interviewing" ? (
-                <DeleteModal
-                  disabled={true}
-                  job={job}
-                />
+                <h1 className="text-red-600 mb-2">Can't Delete a Job while Interviewing!</h1>
               ) : (
-                <DeleteModal
-                  job={job}
-                  disabled={false}
-                />
+                <DeleteModal job={job} disabled={false} />
               )}
-              <StatusModal job={job}/>
+              <StatusModal job={job} />
             </Card>
           ))}
         </div>

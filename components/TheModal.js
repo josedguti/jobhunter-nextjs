@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button, Text, Input } from "@mantine/core";
-import { Plus, Calendar } from "tabler-icons-react";
+import { Plus, Calendar, User, Link, Home  } from "tabler-icons-react";
 import { useRouter } from "next/router";
 import axios from "axios";
 
@@ -8,22 +8,33 @@ const TheModal = () => {
   const [opened, setOpened] = useState(false);
   const router = useRouter();
   const [formData, setFormData] = useState({});
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const redirect = () => {
+    router.push('/JobList')
+    setIsRefreshing(true);
+  };
 
   const reload = () => {
     router.reload();
   };
 
-  // submit to database
+  // submit job form to database
   const handleSubmit = async () => {
     try {
       const response = await axios.post("/api/createJob", formData);
       if (response.status === 200) {
+        redirect();
         reload();
       }
     } catch (error) {
       console.log(error);
     }
   };
+
+  if (isRefreshing) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -50,6 +61,7 @@ const TheModal = () => {
           <Input
             style={{ marginBottom: "1rem" }}
             placeholder="Ex: Amazon, Google, Facebook"
+            rightSection={<Home size={20} color="gray" />}
             required
             name="company"
             onChange={(e) =>
@@ -60,6 +72,7 @@ const TheModal = () => {
           <Input
             style={{ marginBottom: "1rem" }}
             placeholder="Ex: Software Engineer, Full Stack Developer"
+            rightSection={<User size={20} color="gray" />}
             required
             name="position"
             onChange={(e) =>
@@ -70,6 +83,7 @@ const TheModal = () => {
           <Input
             style={{ marginBottom: "1rem" }}
             placeholder="Ex: https://www.google.com/jobs/12345"
+            rightSection={<Link size={20} color="gray" />}
             required
             name="url"
             onChange={(e) => setFormData({ ...formData, url: e.target.value })}

@@ -27,6 +27,67 @@ const StatusModal = ({ job }) => {
     }
   };
 
+  // update job status to Hired
+  const updateToHired = async (id) => {
+    try {
+      const response = await axios.put("/api/updateJob", {
+        jobId: id,
+        status: "Hired",
+      });
+      if (response.status === 200) {
+        reload();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // update job status to Rejected
+  const updateToRejected = async (id) => {
+    try {
+      const response = await axios.put("/api/updateJob", {
+        jobId: id,
+        status: "Rejected",
+      });
+      if (response.status === 200) {
+        reload();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // update job status to Offer
+  const updateToOffer = async (id) => {
+    try {
+      const response = await axios.put("/api/updateJob", {
+        jobId: id,
+        status: "Offer",
+      });
+      if (response.status === 200) {
+        reload();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+    // update job status to Ghosted
+    const updateToGhosted = async (id) => {
+      try {
+        const response = await axios.put("/api/updateJob", {
+          jobId: id,
+          status: "Ghosted",
+        });
+        if (response.status === 200) {
+          reload();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+
   return (
     <>
       <Button
@@ -52,30 +113,39 @@ const StatusModal = ({ job }) => {
           What status you want to update this job to?
         </Text>
         <Button
-          onClick={() => setOpened(false)}
-          variant="outline"
-          color="dark"
-          style={{ marginRight: "2rem", marginLeft: "6rem" }}
-        >
-          Cancel
-        </Button>
-        <Button
-          className="hover:bg-red-800 bg-red-700 text-white"
+          style={{ marginRight: "1rem", marginLeft: "1rem" }}
+          className="hover:bg-blue-800 bg-blue-700 text-white"
           onClick={() => updateToInterviewing(job.id)}
         >
-          Interviewing?
+          Got an Interview?
         </Button>
-        <Button className="hover:bg-red-800 bg-red-700 text-white">
-          Offer?
+        <Button
+          style={{ marginRight: "1rem", marginLeft: "1rem" }}
+          className="hover:bg-green-800 bg-green-700 text-white"
+          onClick={() => updateToOffer(job.id)}
+        >
+          Got an Offer?
         </Button>
-        <Button className="hover:bg-red-800 bg-red-700 text-white">
-          Hired?
+        <Button
+          style={{ marginRight: "1rem", marginLeft: "1rem", marginTop: "1rem" }}
+          className="hover:bg-purple-800 bg-purple-700 text-white"
+          onClick={() => updateToHired(job.id)}
+        >
+          Got Hired?
         </Button>
-        <Button className="hover:bg-red-800 bg-red-700 text-white">
-          Rejected?
+        <Button
+          style={{ marginRight: "3.3rem", marginLeft: "3rem", marginTop: "1rem" }}
+          className="hover:bg-red-800 bg-red-700 text-white"
+          onClick={() => updateToRejected(job.id)}
+        >
+          Got Rejected?
         </Button>
-        <Button className="hover:bg-red-800 bg-red-700 text-white">
-          Ghosted?
+        <Button
+          style={{ marginRight: "1rem", marginLeft: "2rem", marginTop: "1rem" }}
+          className="hover:bg-zinc-600 bg-zinc-400 text-white"
+          onClick={() => updateToGhosted(job.id)}
+        >
+          Got Ghosted?
         </Button>
       </Modal>
     </>

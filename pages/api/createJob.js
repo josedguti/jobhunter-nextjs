@@ -13,7 +13,7 @@ const createJob = async (req, res) => {
   }
 
   try {
-    await prisma.job.create({
+    const createJob = await prisma.job.create({
       data: {
         company,
         position,
@@ -26,7 +26,7 @@ const createJob = async (req, res) => {
         },
       },
     });
-    res.status(200).json({ message: "Job created" });
+    res.status(200).json(createJob);
   } catch (error) {
     res.status(500).json({ message: error });
   }

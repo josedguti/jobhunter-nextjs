@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Loading from "../components/Loading";
 import jobhunterlogo from "../public/jobhunter.png";
 import Link from "next/link";
