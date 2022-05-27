@@ -6,12 +6,15 @@ const updateJob = async (req, res) => {
   if (req.method === "PUT") {
     const { status, jobId } = req.body;
     try {
-      const updateToInterviewing = await prisma.job.update({
+      await prisma.job.update({
         where: {
           id: jobId,
         },
+        data: {
+          status: status,
+        },
       });
-      res.status(200).json({ message: "Job updated" });
+      res.status(200).json({ message: "Job updated to Interviewing" });
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: error });

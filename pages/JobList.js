@@ -5,6 +5,7 @@ import Loading from "../components/Loading";
 import TheModal from "../components/TheModal";
 import AccessDenied from "../components/AccessDenied";
 import DeleteModal from "../components/DeleteModal";
+import StatusModal from "../components/StatusModal";
 
 export async function getServerSideProps(context) {
   const prisma = new PrismaClient();
@@ -101,6 +102,7 @@ export default function Home({ jobs }) {
                   disabled={false}
                 />
               )}
+              <StatusModal job={job}/>
             </Card>
           ))}
         </div>
