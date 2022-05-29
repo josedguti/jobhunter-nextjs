@@ -27,6 +27,7 @@ const createJob = async (req, res) => {
       },
     });
     res.status(200).json(createJob);
+    console.log(createJob);
   } catch (error) {
     res.status(500).json({ message: error });
   }
