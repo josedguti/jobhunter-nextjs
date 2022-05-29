@@ -3,6 +3,7 @@ import { Modal, Button, Text, Input } from "@mantine/core";
 import { Plus, Calendar, User, Link, Home  } from "tabler-icons-react";
 import { useRouter } from "next/router";
 import axios from "axios";
+import Loading from "./Loading";
 
 const TheModal = () => {
   const [opened, setOpened] = useState(false);

@@ -4,7 +4,7 @@ import { Trash } from "tabler-icons-react";
 import { useRouter } from "next/router";
 import axios from "axios";
 
-const DeleteModal = ({ job }) => {
+const DeleteModal = ({ job, disable }) => {
   const [opened, setOpened] = useState(false);
   const router = useRouter();
 
@@ -28,15 +28,30 @@ const DeleteModal = ({ job }) => {
 
   return (
     <>
-      <Button
-        className="ml-7 mt-1"
-        rightIcon={<Trash />}
-        variant="outline"
-        color="dark"
-        onClick={() => setOpened(true)}
-      >
-        Delete
-      </Button>
+      {job.status === "Interviewing" ? (
+        <Button
+          className="ml-0.5 mt-1"
+          rightIcon={<Trash />}
+          variant="outline"
+          color="dark"
+          onClick={() => setOpened(true)}
+          disabled
+          title="You cannot delete an application while it is in the Interviewing status"
+        >
+          Delete
+        </Button>
+      ) : (
+        <Button
+          className="ml-0.5 mt-1"
+          rightIcon={<Trash />}
+          variant="outline"
+          color="dark"
+          onClick={() => setOpened(true)}
+          disabled={disable}
+        >
+          Delete
+        </Button>
+      )}
       <Modal
         centered
         overlayOpacity={0.4}

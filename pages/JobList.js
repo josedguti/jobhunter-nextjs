@@ -6,7 +6,6 @@ import TheModal from "../components/TheModal";
 import AccessDenied from "../components/AccessDenied";
 import DeleteModal from "../components/DeleteModal";
 import StatusModal from "../components/StatusModal";
-import Link from "next/link";
 
 export async function getServerSideProps(context) {
   const prisma = new PrismaClient();
@@ -66,37 +65,70 @@ export default function JobList({ jobs }) {
           </h1>
         </>
       ) : (
-        <div style={{ margin: "3rem", display: "flex" }}>
+        <div
+          style={{
+            margin: "3rem",
+            display: "flex",
+            flexWrap: "wrap",
+            paddingBottom: "5rem",
+          }}
+        >
           {jobs.map((job) => (
-            <Card key={job.id} className="mx-5 my-4" shadow="sm" p="lg">
+            <Card key={job.id} className="mx-5 my-4 hover:bg-slate-100" shadow="md" p="lg">
               <Card.Section>
-                <h1 className="text-xl text-center">{job.company}</h1>
+                <h1 className="text-2xl text-center my-4">{job.company}</h1>
               </Card.Section>
 
-              <Group position="apart" style={{ marginBottom: 5 }}>
-                <Text weight={500}>Position: {job.position}</Text>
-                <Badge color="pink" variant="light">
-                  Date: {job.date}
+              <Card.Section className="text-center">
+                <h1 className="text-lg my-2">{job.position}</h1>
+                <Badge
+                variant="outline"
+                  color="indigo"
+                  size="lg"
+                  style={{ marginBottom: "1rem", marginTop: "0.5rem" }}
+                >
+                  Applied: {job.date}
                 </Badge>
-              </Group>
+              </Card.Section>
 
-              <Text size="sm" style={{ lineHeight: 1.5 }}>
-                <a href={job.url} rel="noopener" target="_blank">Link to Job Post</a>
+              <Card.Section className="text-center mt-2">
+                <Text size="sm">
+                  <Badge color="lime" size="lg">
+                    <a href={job.url} rel="noreferrer" target="_blank">
+                      Job Post Link
+                    </a>
+                  </Badge>
+                </Text>
+              </Card.Section>
+
+              <Text size="md">
+                Job Status:{" "}
+                <Badge
+                  variant="outline"
+                  color="dark"
+                  size="lg"
+                  style={{
+                    color:
+                      job.status === "Offer"
+                        ? "#90EE90"
+                        : job.status === "Interviewing"
+                        ? "blue"
+                        : job.status === "Hired"
+                        ? "#8A2BE2"
+                        : job.status === "Rejected"
+                        ? "red"
+                        : job.status === "Ghosted"
+                        ? "#778899"
+                        : "black",
+                    margin: "1.5rem",
+                  }}
+                >
+                  {job.status}
+                </Badge>
               </Text>
 
-              <Button
-                variant="light"
-                color="blue"
-                fullWidth
-                style={{ marginTop: 14 }}
-              >
-                Job Status: {job.status}
-              </Button>
-              {job.status === "Interviewing" ? (
-                <h1 className="text-red-600 mb-2">Can't Delete a Job while Interviewing!</h1>
-              ) : (
-                <DeleteModal job={job} disabled={false} />
-              )}
+              <DeleteModal job={job} disable={false} />
+
               <StatusModal job={job} />
             </Card>
           ))}

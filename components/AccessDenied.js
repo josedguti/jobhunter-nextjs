@@ -2,6 +2,8 @@ import React from "react";
 import { signIn } from "next-auth/react";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
+import { Alert } from '@mantine/core';
+import { AlertCircle } from 'tabler-icons-react';
 
 function AccessDenied() {
 
@@ -20,17 +22,10 @@ function AccessDenied() {
     <>
     <ToastContainer limit={1}/>
       <div className="flex justify-center text-center mt-10">
-        <div className="rounded-md bg-red-50/70 p-4">
-          <div className="flex">
-            <div className="ml-3">
-              <h3 className="text-3xl font-bold text-red-700">Access Denied</h3>
-              <p className="text-base font-medium text-red-700 mt-2">
-                Sorry, but you can&apos;t create or see your jobs without Signing In.
-              </p>
-            </div>
-          </div>
-        </div>
-        <br />
+      <Alert icon={<AlertCircle size={16} />} title="Bummer!" color="red" radius="md">
+      Something terrible happened, you made a mistake and there is no going back!
+      <h1>I&apos;m joking, you just need to sign in!</h1>
+    </Alert>
       </div>
       <div className="flex justify-center mt-5">
         <button
