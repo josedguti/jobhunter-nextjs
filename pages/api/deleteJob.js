@@ -1,6 +1,5 @@
-import { PrismaClient } from '@prisma/client';
+import { prisma } from "../../lib/prisma";
 
-const prisma = new PrismaClient();
 
 const deleteJob = async (req, res) => {
     const { jobId } = req.body;
@@ -11,7 +10,7 @@ const deleteJob = async (req, res) => {
                 id: jobId,
             },
         });
-        res.status(200).json({ message: 'Job deleted' });
+        res.status(200).json(deleteJob);
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: error });

@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../lib/prisma";
 import { getSession, useSession } from "next-auth/react";
 import { Card, Text, Badge, Button, Group } from "@mantine/core";
 import Loading from "../components/Loading";
@@ -7,8 +7,9 @@ import AccessDenied from "../components/AccessDenied";
 import DeleteModal from "../components/DeleteModal";
 import StatusModal from "../components/StatusModal";
 
+
 export async function getServerSideProps(context) {
-  const prisma = new PrismaClient();
+  
   const session = await getSession(context);
 
   if (!session) {
@@ -21,11 +22,10 @@ export async function getServerSideProps(context) {
 
   const jobs = await prisma.job.findMany({
     where: {
-      user: {
-        email: session.user.email,
-      },
+      userId: session.user.id,
     },
   });
+
 
   return {
     props: {
