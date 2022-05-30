@@ -1,4 +1,4 @@
-import { db } from "../lib/prisma";
+import { prisma } from "../lib/prisma";
 import { getSession, useSession } from "next-auth/react";
 import { Card, Text, Badge, Button, Group } from "@mantine/core";
 import Loading from "../components/Loading";
@@ -20,7 +20,7 @@ export async function getServerSideProps(context) {
     };
   }
 
-  const jobs = await db.job.findMany({
+  const jobs = await prisma.job.findMany({
     where: {
       userId: session.user.id,
     },

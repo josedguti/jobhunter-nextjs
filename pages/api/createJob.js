@@ -1,4 +1,4 @@
-import { db } from "../../lib/prisma";
+import { prisma } from "../../lib/prisma";
 import { getSession } from "next-auth/react";
 
 
@@ -12,7 +12,7 @@ const createJob = async (req, res) => {
   }
 
   try {
-    const createJob = await db.job.create({
+    const createJob = await prisma.job.create({
       data: {
         company,
         position,

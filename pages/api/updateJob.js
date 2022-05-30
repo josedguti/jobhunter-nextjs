@@ -1,10 +1,10 @@
-import { db } from "../../lib/prisma";
+import { prisma } from "../../lib/prisma";
 
 const updateJob = async (req, res) => {
   if (req.method === "PUT") {
     const { status, jobId } = req.body;
     try {
-      await db.job.update({
+      await prisma.job.update({
         where: {
           id: jobId,
         },

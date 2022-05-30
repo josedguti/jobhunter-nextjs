@@ -1,11 +1,11 @@
-import { db } from "../../lib/prisma";
+import { prisma } from "../../lib/prisma";
 
 
 const deleteJob = async (req, res) => {
     const { jobId } = req.body;
 
     try {
-        await db.job.delete({
+        await prisma.job.delete({
             where: {
                 id: jobId,
             },
