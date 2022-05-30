@@ -7,9 +7,7 @@ import AccessDenied from "../components/AccessDenied";
 import DeleteModal from "../components/DeleteModal";
 import StatusModal from "../components/StatusModal";
 
-
 export async function getServerSideProps(context) {
-  
   const session = await getSession(context);
 
   if (!session) {
@@ -22,10 +20,11 @@ export async function getServerSideProps(context) {
 
   const jobs = await prisma.job.findMany({
     where: {
-      userId: session.user.id,
+      user: {
+        email: session.user.email,
+      },
     },
   });
-
 
   return {
     props: {
@@ -74,7 +73,12 @@ export default function JobList({ jobs }) {
           }}
         >
           {jobs.map((job) => (
-            <Card key={job.id} className="mx-5 my-4 hover:bg-slate-100" shadow="md" p="lg">
+            <Card
+              key={job.id}
+              className="mx-5 my-4 hover:bg-slate-100"
+              shadow="md"
+              p="lg"
+            >
               <Card.Section>
                 <h1 className="text-2xl text-center my-4">{job.company}</h1>
               </Card.Section>
@@ -82,7 +86,7 @@ export default function JobList({ jobs }) {
               <Card.Section className="text-center">
                 <h1 className="text-lg my-2">{job.position}</h1>
                 <Badge
-                variant="outline"
+                  variant="outline"
                   color="indigo"
                   size="lg"
                   style={{ marginBottom: "1rem", marginTop: "0.5rem" }}
