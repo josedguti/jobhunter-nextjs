@@ -7,24 +7,33 @@ import axios from "axios";
 const DeleteModal = ({ job, disable }) => {
   const [opened, setOpened] = useState(false);
   const router = useRouter();
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const reload = () => {
-    router.reload();
+  const refreshData = () => {
+    router.replace(router.asPath);
+    setIsRefreshing(true);
   };
 
   // delete job application
-  const deleteJob = async (id) => {
+  const deleteJob = async (e, id) => {
+    e.preventDefault();
     try {
       const response = await axios.post("/api/deleteJob", {
         jobId: id,
       });
       if (response.status === 200) {
-        reload();
+        refreshData();
+        setIsRefreshing(false);
+        setOpened(false);
       }
     } catch (error) {
       console.log(error);
     }
   };
+
+  if (isRefreshing) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -72,7 +81,7 @@ const DeleteModal = ({ job, disable }) => {
         </Button>
         <Button
           className="hover:bg-red-800 bg-red-700 text-white"
-          onClick={() => deleteJob(job.id)}
+          onClick={(e) => deleteJob(e, job.id)}
         >
           Delete
         </Button>

@@ -3,24 +3,30 @@ import { Modal, Button, Text } from "@mantine/core";
 import { Edit } from "tabler-icons-react";
 import { useRouter } from "next/router";
 import axios from "axios";
+import Loading from './Loading';
 
 const StatusModal = ({ job }) => {
   const [opened, setOpened] = useState(false);
   const router = useRouter();
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const reload = () => {
-    router.reload();
+  const refreshData = () => {
+    router.replace(router.asPath);
+    setIsRefreshing(true);
   };
 
   // update job status to Interviewing
-  const updateToInterviewing = async (id) => {
+  const updateToInterviewing = async (e, id) => {
+    e.preventDefault();
     try {
       const response = await axios.put("/api/updateJob", {
         jobId: id,
         status: "Interviewing",
       });
       if (response.status === 200) {
-        reload();
+        refreshData();
+        setIsRefreshing(false);
+        setOpened(false);
       }
     } catch (error) {
       console.log(error);
@@ -28,14 +34,17 @@ const StatusModal = ({ job }) => {
   };
 
   // update job status to Hired
-  const updateToHired = async (id) => {
+  const updateToHired = async (e, id) => {
+    e.preventDefault();
     try {
       const response = await axios.put("/api/updateJob", {
         jobId: id,
         status: "Hired",
       });
       if (response.status === 200) {
-        reload();
+        refreshData();
+        setIsRefreshing(false);
+        setOpened(false);
       }
     } catch (error) {
       console.log(error);
@@ -43,14 +52,17 @@ const StatusModal = ({ job }) => {
   };
 
   // update job status to Rejected
-  const updateToRejected = async (id) => {
+  const updateToRejected = async (e, id) => {
+    e.preventDefault();
     try {
       const response = await axios.put("/api/updateJob", {
         jobId: id,
         status: "Rejected",
       });
       if (response.status === 200) {
-        reload();
+        refreshData();
+        setIsRefreshing(false);
+        setOpened(false);
       }
     } catch (error) {
       console.log(error);
@@ -58,14 +70,17 @@ const StatusModal = ({ job }) => {
   };
 
   // update job status to Offer
-  const updateToOffer = async (id) => {
+  const updateToOffer = async (e, id) => {
+    e.preventDefault();
     try {
       const response = await axios.put("/api/updateJob", {
         jobId: id,
         status: "Offer",
       });
       if (response.status === 200) {
-        reload();
+        refreshData();
+        setIsRefreshing(false);
+        setOpened(false);
       }
     } catch (error) {
       console.log(error);
@@ -73,19 +88,26 @@ const StatusModal = ({ job }) => {
   };
 
   // update job status to Ghosted
-  const updateToGhosted = async (id) => {
+  const updateToGhosted = async (e, id) => {
+    e.preventDefault();
     try {
       const response = await axios.put("/api/updateJob", {
         jobId: id,
         status: "Ghosted",
       });
       if (response.status === 200) {
-        reload();
+        refreshData();
+        setIsRefreshing(false);
+        setOpened(false);
       }
     } catch (error) {
       console.log(error);
     }
   };
+
+  if (isRefreshing) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -115,14 +137,14 @@ const StatusModal = ({ job }) => {
           <Button
             style={{ marginRight: "1rem", marginLeft: "1rem" }}
             className="hover:bg-blue-800 bg-blue-700 text-white"
-            onClick={() => updateToInterviewing(job.id)}
+            onClick={(e) => updateToInterviewing(e, job.id)}
           >
             Got an Interview?
           </Button>
           <Button
             style={{ marginRight: "1rem", marginLeft: "1rem" }}
             className="hover:bg-green-800 bg-green-700 text-white"
-            onClick={() => updateToOffer(job.id)}
+            onClick={(e) => updateToOffer(e, job.id)}
           >
             Got an Offer?
           </Button>
@@ -132,7 +154,7 @@ const StatusModal = ({ job }) => {
               marginLeft: "1rem",
             }}
             className="hover:bg-purple-800 bg-purple-700 text-white"
-            onClick={() => updateToHired(job.id)}
+            onClick={(e) => updateToHired(e, job.id)}
           >
             Got Hired?
           </Button>
@@ -142,7 +164,7 @@ const StatusModal = ({ job }) => {
               marginLeft: "1rem",
             }}
             className="hover:bg-red-800 bg-red-700 text-white"
-            onClick={() => updateToRejected(job.id)}
+            onClick={(e) => updateToRejected(e, job.id)}
           >
             Got Rejected?
           </Button>
@@ -152,7 +174,7 @@ const StatusModal = ({ job }) => {
               marginLeft: "1rem",
             }}
             className="hover:bg-zinc-600 bg-zinc-400 text-white"
-            onClick={() => updateToGhosted(job.id)}
+            onClick={(e) => updateToGhosted(e, job.id)}
           >
             Got Ghosted?
           </Button>

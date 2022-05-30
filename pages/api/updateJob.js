@@ -1,12 +1,10 @@
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { db } from "../../lib/prisma";
 
 const updateJob = async (req, res) => {
   if (req.method === "PUT") {
     const { status, jobId } = req.body;
     try {
-      await prisma.job.update({
+      await db.job.update({
         where: {
           id: jobId,
         },
@@ -14,7 +12,7 @@ const updateJob = async (req, res) => {
           status: status,
         },
       });
-      res.status(200).json({ message: "Job updated" });
+      res.status(200).json(updateJob);
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: error });

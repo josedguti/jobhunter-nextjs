@@ -11,22 +11,20 @@ const TheModal = () => {
   const [formData, setFormData] = useState({});
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const redirect = () => {
-    router.push('/JobList')
+  const refreshData = () => {
+    router.replace(router.asPath);
     setIsRefreshing(true);
   };
 
-  const reload = () => {
-    router.reload();
-  };
-
   // submit job form to database
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
       const response = await axios.post("/api/createJob", formData);
       if (response.status === 200) {
-        redirect();
-        reload();
+        refreshData();
+        setIsRefreshing(false);
+        setOpened(false);
       }
     } catch (error) {
       console.log(error);
@@ -55,7 +53,7 @@ const TheModal = () => {
         onClose={() => setOpened(false)}
         title="Create New Job Application"
       >
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(e) => handleSubmit(e)}>
           <Text style={{ marginBottom: "1rem", marginTop: "2rem" }}>
             Company Name
           </Text>

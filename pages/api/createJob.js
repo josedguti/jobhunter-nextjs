@@ -1,7 +1,6 @@
-import { PrismaClient } from "@prisma/client";
+import { db } from "../../lib/prisma";
 import { getSession } from "next-auth/react";
 
-const prisma = new PrismaClient();
 
 const createJob = async (req, res) => {
   const { company, position, url, date } = req.body;
@@ -13,7 +12,7 @@ const createJob = async (req, res) => {
   }
 
   try {
-    const createJob = await prisma.job.create({
+    const createJob = await db.job.create({
       data: {
         company,
         position,
@@ -27,7 +26,6 @@ const createJob = async (req, res) => {
       },
     });
     res.status(200).json(createJob);
-    console.log(createJob);
   } catch (error) {
     res.status(500).json({ message: error });
   }
