@@ -3,6 +3,7 @@ import { Modal, Button, Text } from "@mantine/core";
 import { Trash } from "tabler-icons-react";
 import { useRouter } from "next/router";
 import axios from "axios";
+import Loading from "./Loading";
 
 const DeleteModal = ({ job, disable }) => {
   const [opened, setOpened] = useState(false);
